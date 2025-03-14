@@ -1,13 +1,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --border: rgba(0,0,0,.3);
+  --label: rgba(0,0,0,.6);
+  --logo-y-pos: -51px;
+  --input-bg: rgba(0,0,0,.05);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-  }
+    --border: rgb(255,255,255,.3);
+    --label: rgba(255,255,255,.6);
+    --logo-y-pos: 0px;
+    --input-bg: rgba(255,255,255,.05);
+    }
 }
 
 html,
@@ -67,7 +75,7 @@ body{
     
     width: 400px;
     padding: 30px;
-    border: 1px solid rgba(255,255,255,.3);
+    border: 1px solid var(--border);
     
     
     p{
@@ -82,7 +90,7 @@ body{
 
     i{
       background-image: url("https://static.cdninstagram.com/rsrc.php/v4/yB/r/E7m8ZCMOFDS.png");
-      background-position: 0px 0px;
+      background-position: 0px var(--logo-y-pos);
       background-size: auto;
       width: 175px;
       height: 51px;
@@ -105,7 +113,7 @@ body{
         top: 5px;
         left: 5px;
         font-size: .7em;
-        color: rgba(255,255,255,.6);
+        color: var(--label);
       }
 
       .input-container{
@@ -114,8 +122,8 @@ body{
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
-        background-color: rgba(255,255,255,.05);
-        border: 1px solid rgb(255,255,255,.3);
+        background-color: var(--input-bg);
+        border: 1px solid var(--border);
         padding-bottom: 5px;
         position: relative;
         border-radius: 5px;
@@ -127,6 +135,7 @@ body{
           outline: none;
           padding: 0 10px;
           border: none;
+          color: var(--foreground);
         }
 
         button{
@@ -135,11 +144,11 @@ body{
           right: 0;
           height: 100%;
           width: 30%;
-
+          color: var(--foreground);
           border-radius: 0;
           border: none;
           background-color: transparent;
-          color: #ffffff;
+          color: var(--foreground);
           font-weight: bold;
           opacity: 1;
           transition: .2s;
@@ -177,6 +186,7 @@ body{
       width: 90%;
       border-radius: 10px;
       border: none;
+      color: var(--foreground);
     }
   }
 
