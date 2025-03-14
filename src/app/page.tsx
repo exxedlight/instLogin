@@ -1,95 +1,110 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [isPassVisible, setIsPassVisible] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async () => {
+    if(login.length < 3 || password.length < 6)
+      return;
+    
+    setMessage("");
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ login, password }),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        setMessage("Ошибка входа. Проверте свой логин и пароль.")
+      } else {
+        setMessage(`Ошибка!`);
+      }
+    } catch (error) {
+      setMessage('Произошла ошибка при отправке данных.');
+    }
+  }
+
+  return (
+    <div className="wrapper">
+      
+      <div className="login-form">
+        
+        <i></i>
+        
+        <p>Для продолжения необходима авторизация</p>
+
+        <div className="styled-input">
+          {login.length > 0 && ( <label>Телефон, имя пользователя или эл. адрес</label> )}
+          
+          <div className="input-container"
+            style={login.length > 0 ? {justifyContent: "flex-start"} : {justifyContent: "center"}}>
+            <input 
+              type="text" 
+              placeholder="Телефон, имя пользователя или эл. адрес"
+              value={login}  
+              onChange={(e) => {setLogin(e.target.value)}}/>
+          </div>
+          
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        
+        <div className="styled-input">
+          {password.length > 0 && ( <label>Пароль</label> )}
+          
+          <div className="input-container"
+            style={password.length > 0 ? {justifyContent: "flex-start"} : {justifyContent: "center"}}>
+            <input 
+              type={isPassVisible ? "text" : "password"}  
+              placeholder="Пароль"
+              value={password}
+              style={{maxWidth: "70%", alignSelf: "flex-start"}}
+              onChange={(e) => {setPassword(e.target.value)}}/>
+            
+            {password.length > 0 && (
+              <button onClick={(e) => {
+                setIsPassVisible(!isPassVisible);
+              }}
+                >
+                  {isPassVisible ? "Скрыть" : "Показать"}
+              </button>
+            )}
+            
+          </div>
+          
+        </div>
+        
+        
+        <button
+          style={
+            (login.length > 0 &&
+            password.length >= 6) ? 
+            {opacity: "1"} : 
+            {opacity: ".7"} 
+          }
+          onClick={handleSubmit}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Войти
+        </button>
+
+        {message.length > 0 && (
+          <div className="message">
+            <p>К сожалению, вы ввели неправильный пароль. Проверьте свой пароль еще раз.</p>
+          </div>
+        )}
+        
+
+      </div>
+
     </div>
   );
 }

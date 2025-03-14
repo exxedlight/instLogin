@@ -40,3 +40,145 @@ a {
     color-scheme: dark;
   }
 }
+
+
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    width: 400px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,.3);
+    
+    
+    p{
+      font-size: .8em;
+      text-align: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid silver;
+      width: 90%;
+      padding-bottom: 5px;
+      border-radius: 3px;
+    }
+
+    i{
+      background-image: url("https://static.cdninstagram.com/rsrc.php/v4/yB/r/E7m8ZCMOFDS.png");
+      background-position: 0px 0px;
+      background-size: auto;
+      width: 175px;
+      height: 51px;
+      background-repeat: no-repeat;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+
+    .styled-input{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      width: 90%;
+      position: relative;
+
+      label{
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: .7em;
+        color: rgba(255,255,255,.6);
+      }
+
+      .input-container{
+        height: 40px;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        background-color: rgba(255,255,255,.05);
+        border: 1px solid rgb(255,255,255,.3);
+        padding-bottom: 5px;
+        position: relative;
+        border-radius: 5px;
+
+        input{
+          width: 100%;
+          font-size: .8em;
+          background-color: transparent;
+          outline: none;
+          padding: 0 10px;
+          border: none;
+        }
+
+        button{
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 100%;
+          width: 30%;
+
+          border-radius: 0;
+          border: none;
+          background-color: transparent;
+          color: #ffffff;
+          font-weight: bold;
+          opacity: 1;
+          transition: .2s;
+
+          text-align: right;
+          padding-right: 10px;
+
+          &:hover{
+            cursor: pointer;
+            opacity: .7;
+          }
+        }
+      }
+    }
+    
+    .message{
+      border-top: 2px solid silver;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      
+      p{
+        border: none;
+        padding: 0;
+        color: red;
+      }
+    }
+
+    button{
+      background-color: rgb(0, 149, 246);
+      height: 40px;
+      width: 90%;
+      border-radius: 10px;
+      border: none;
+    }
+  }
+
+  
+}
